@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" style="-fx-background-color: White;"
+            stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.LoginController">
+   <children>
+      <Pane layoutX="-1.0" prefHeight="600.0" prefWidth="324.0" styleClass="linear-grad" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="160.0" fitWidth="205.0" layoutX="68.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/bookshelf.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="86.0" layoutY="300.0" text="Hello School" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="100.0" layoutY="331.0" text="A Better Futer" textFill="#fcf8f8">
+               <font>
+                  <Font name="Gabriola" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TextField fx:id="txfUsername" layoutX="410.0" layoutY="288.0" prefHeight="31.0" prefWidth="253.0" promptText="username" />
+      <PasswordField fx:id="password" layoutX="411.0" layoutY="362.0" prefHeight="31.0" prefWidth="253.0" promptText="password" />
+      <Button fx:id="btnSignIn" layoutX="580.0" layoutY="434.0" mnemonicParsing="false" onAction="#singIn" prefHeight="31.0" prefWidth="109.0" styleClass="button1" text="Sign In" />
+      <Button fx:id="btnSignUp" layoutX="452.0" layoutY="491.0" mnemonicParsing="false" onAction="#signUp" styleClass="button2" text="Don't have account? Sign Up" />
+      <Hyperlink fx:id="hylForgotPassword" layoutX="456.0" layoutY="438.0" text="Forgot Password" />
+      <Label layoutX="411.0" layoutY="191.0" prefHeight="38.0" prefWidth="109.0" text="Sign In">
+         <font>
+            <Font size="23.0" />
+         </font>
+         <effect>
+            <Glow level="1.0" />
+         </effect>
+      </Label>
+      <Label fx:id="lblWrongCredentials" layoutX="477.0" layoutY="407.0" text="Wrong username or password" textFill="#f50000" visible="false" />
+   </children>
+</AnchorPane>
