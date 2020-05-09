@@ -1,5 +1,6 @@
 package home.controllers;
 
+import home.dao.StudentDAO;
 import home.models.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,9 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class AddStudentController implements Initializable {
+    StudentDAO studentDAO = new StudentDAO();
 
     @FXML
     private Button btnRegister;
@@ -73,6 +80,11 @@ public class AddStudentController implements Initializable {
             System.out.println("Student Languages" + student.getLanguages()[0]);
             System.out.println("Student Languages" + student.getLanguages()[1]);
             System.out.println("Student Gender" + student.getGender());
+
+
+            studentDAO.createStudent(student);
+
+
         }catch (NumberFormatException nfe){
             System.err.println(nfe);
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please Enter number only in the ID field");
@@ -83,6 +95,8 @@ public class AddStudentController implements Initializable {
             alert.showAndWait();
         }
     }
+
+
 
 
     @Override
