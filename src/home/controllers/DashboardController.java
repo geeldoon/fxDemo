@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,6 +49,35 @@ public class DashboardController implements Initializable {
     @FXML
     private PieChart chStudentsChart;
 
+
+    @FXML
+    void editCLass(TableColumn.CellEditEvent event) {
+        Student editedStudent = tbvStudents.getSelectionModel().getSelectedItem();
+        System.out.println("OLD CLASS " + editedStudent.getClassName());
+        editedStudent.setClassName(event.getNewValue().toString());
+        System.out.println("NEW CLASS "+editedStudent.getClassName());
+    }
+
+    @FXML
+    void editID(TableColumn.CellEditEvent event) {
+        Student editedStudent = tbvStudents.getSelectionModel().getSelectedItem();
+        editedStudent.setId(Integer.parseInt(event.getNewValue().toString()));
+
+    }
+
+    @FXML
+    void editLevel(TableColumn.CellEditEvent event) {
+        //tbvStudents.getSelectionModel().getSelectedItem().setLevel(event.getNewValue().toString());
+        Student editedStudent = tbvStudents.getSelectionModel().getSelectedItem();
+        editedStudent.setLevel(event.getNewValue().toString());
+    }
+
+    @FXML
+    void editName(TableColumn.CellEditEvent event) {
+        Student editedStudent = tbvStudents.getSelectionModel().getSelectedItem();
+        editedStudent.setName(event.getNewValue().toString());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<Student> students = new ArrayList<>();
@@ -80,6 +111,14 @@ public class DashboardController implements Initializable {
         tcStudentID.setCellValueFactory(new PropertyValueFactory<Student, Integer>("id"));
         tcStudentLevel.setCellValueFactory(new PropertyValueFactory<Student, String>("level"));
 
+        //making columns editable
+        tcStudentClass.setCellFactory(TextFieldTableCell.forTableColumn());
+        tcStudentLevel.setCellFactory(TextFieldTableCell.forTableColumn());
+        tcStudentName.setCellFactory(TextFieldTableCell.forTableColumn());
+        tcStudentID.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        //making the table editable
+        tbvStudents.setEditable(true);
         loadChart(students);
         lblStudents.setText(String.valueOf(students.size()));
         tbvStudents.setItems(FXCollections.observableList(students));

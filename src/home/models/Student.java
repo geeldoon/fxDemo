@@ -5,6 +5,24 @@ public class Student {
     private int id;
     private String level;
     private String className;
+    private String gender;
+    private String[] languages;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
+    }
 
     public Student(String name, int id, String level, String className) {
         this.name = name;
