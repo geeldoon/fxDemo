@@ -8,6 +8,8 @@ public class Student {
     private String gender;
     private String[] languages;
 
+    public Student(){}
+
     public String getGender() {
         return gender;
     }
