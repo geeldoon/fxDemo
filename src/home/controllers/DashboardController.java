@@ -3,6 +3,7 @@ package home.controllers;
 import home.dao.StudentDAO;
 import home.models.Student;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -26,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
     StudentDAO studentDAO = new StudentDAO();
+    ArrayList<Student> students = new ArrayList<>();
     @FXML
     private Label lblStudents;
 
@@ -63,6 +66,16 @@ public class DashboardController implements Initializable {
     private Button btnDelete;
 
     @FXML
+    private TextField txtSearch;
+
+    @FXML
+    void search(KeyEvent event) {
+        FilteredList<Student> flList = new FilteredList<Student>(FXCollections.observableList(students), p->true);
+        flList.setPredicate(p->p.getName().contains(txtSearch.getText().toString().trim()));
+        tbvStudents.setItems(flList);
+    }
+
+    @FXML
     void delete(ActionEvent event) throws SQLException {
         try {
             Student student = tbvStudents.getSelectionModel().getSelectedItem();
@@ -70,7 +83,15 @@ public class DashboardController implements Initializable {
             if (i > 0) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, i + " of rows affected");
                 alert.show();
+                students = studentDAO.readStudents();
+                tbvStudents.setItems(FXCollections.observableList(students));
+                chStudentsChart.getData().clear();
+                loadChart(students);
+
+                lblStudents.setText(String.valueOf(students.size()));
             }
+
+
         }catch (NullPointerException ne){
             Alert alert = new Alert(Alert.AlertType.ERROR, " Please select the row to delete");
             alert.show();
@@ -78,13 +99,20 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    void register(ActionEvent event) throws IOException {
+    void register(ActionEvent event) throws IOException, SQLException {
+
+        ProgressIndicator p2 = new ProgressIndicator();
+       for(int i = 0; i<= 100; i++){
+           p2.setProgress(i);
+       }
+
         Parent root = FXMLLoader.load(getClass().getResource("/home/fxml/add_student.fxml"));
         Stage addNew = new Stage();
         addNew.setTitle("Hello School Login");
         addNew.setScene(new Scene(root, 800, 600));
         addNew.getIcons().add(new Image("home/images/icon.png"));
         addNew.show();
+
     }
 
 
@@ -94,8 +122,9 @@ public class DashboardController implements Initializable {
         System.out.println("OLD CLASS " + editedStudent.getClassName());
         editedStudent.setClassName(event.getNewValue().toString());
         System.out.println("NEW CLASS "+editedStudent.getClassName());
-
+        ArrayList<Student> students = studentDAO.readStudents();
         int r = studentDAO.updateStudent(editedStudent);
+        tbvStudents.setItems(FXCollections.observableList(students));
         if(r >0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, r +" of rows affected");
             alert.show();
@@ -141,8 +170,8 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<Student> students = new ArrayList<>();
 
+        chStudentsChart.setLabelsVisible(false);
         try {
             students = studentDAO.readStudents();
         } catch (SQLException e) {
@@ -165,6 +194,8 @@ public class DashboardController implements Initializable {
         loadChart(students);
         lblStudents.setText(String.valueOf(students.size()));
         tbvStudents.setItems(FXCollections.observableList(students));
+
+
 
 
     }
@@ -193,4 +224,6 @@ public class DashboardController implements Initializable {
         chStudentsChart.getData().add(new PieChart.Data("Form 2", form2));
         chStudentsChart.getData().add(new PieChart.Data("Form 4", form4));
     }
+
+
 }

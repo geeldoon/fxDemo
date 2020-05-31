@@ -83,7 +83,8 @@ public class AddStudentController implements Initializable {
 
 
             studentDAO.createStudent(student);
-
+            txtID.clear();
+            txtName.clear();
 
         }catch (NumberFormatException nfe){
             System.err.println(nfe);

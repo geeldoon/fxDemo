@@ -6,6 +6,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -132,10 +133,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddNew" layoutX="178.0" layoutY="200.0" mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="155.0" styleClass="button1" text="Add New" />
-      <Button layoutX="133.0" layoutY="351.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="88.0" text="Button" />
-      <Button fx:id="btnDelete" layoutX="147.0" layoutY="351.0" mnemonicParsing="false" onAction="#delete" prefHeight="20.0" prefWidth="88.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" AnchorPane.bottomAnchor="24.0" />
-      <Pane layoutX="10.0" layoutY="10.0" prefHeight="75.0" prefWidth="600.0" styleClass="linear-grad">
+      <Button fx:id="btnAddNew" layoutX="205.0" layoutY="200.0" mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="106.0" styleClass="button1" text="Add New" AnchorPane.leftAnchor="205.0" />
+      <Button fx:id="btnDelete" layoutX="328.0" layoutY="200.0" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE" AnchorPane.leftAnchor="328.0" />
+      <Pane layoutX="10.0" layoutY="10.0" prefHeight="75.0" prefWidth="600.0" styleClass="linear-grad" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="57.0" fitWidth="81.0" layoutX="7.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -159,5 +159,6 @@
             </Label>
          </children>
       </Pane>
+      <TextField fx:id="txtSearch" layoutX="22.0" layoutY="200.0" onKeyReleased="#search" promptText="Search" />
    </children>
 </AnchorPane>
